@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+
+import { MainComponent } from '../modules/main/main.module';
 
 @Component({
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [MainComponent, RouterModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrl: '../custom-theme.scss',
 })
 export class AppComponent {
   title = 'listi.ng';
