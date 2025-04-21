@@ -1,0 +1,21 @@
+{
+  "name": "common-dtos",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/common-dtos/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/common-dtos",
+        "main": "libs/shared/common-dtos/src/index.ts",
+        "tsConfig": "libs/shared/common-dtos/tsconfig.lib.json",
+        "assets": ["libs/shared/common-dtos/*.md"],
+        "format": ["cjs"],
+        "generatePackageJson": true
+      }
+    }
+  },
+  "tags": []
+}

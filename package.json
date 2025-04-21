@@ -2,7 +2,11 @@
   "name": "@listi.ng/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "listi.ng:migrate": "sequelize-cli db:migrate --config apps/api/listi.ng-api/sequelize-cli.config.js",
+    "listi.ng:seed": "sequelize-cli db:seed:all --config apps/api/listi.ng-api/sequelize-cli.config.js --seeders-path apps/api/listi.ng-api/src/seeds",
+    "listi.ng:seed:undo": "sequelize-cli db:seed:undo:all --config apps/api/listi.ng-api/sequelize-cli.config.js"
+  },
   "private": true,
   "dependencies": {
     "@angular/cdk": "^19.2.10",
@@ -15,9 +19,14 @@
     "@angular/platform-browser-dynamic": "~19.2.0",
     "@angular/router": "~19.2.0",
     "axios": "^1.6.0",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.0",
     "ng": "^0.0.0",
     "rxjs": "~7.8.0",
+    "sequelize": "^6.37.7",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
@@ -58,6 +67,7 @@
     "jest-preset-angular": "~14.4.0",
     "nx": "20.8.0",
     "prettier": "^2.6.2",
+    "sequelize-cli": "^6.6.2",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
     "tslib": "^2.3.0",

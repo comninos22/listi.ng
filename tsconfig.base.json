@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@listi.ng/common-dtos": ["libs/shared/common-dtos/src/index.ts"],
+      "@listi.ng/shared": ["shared/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

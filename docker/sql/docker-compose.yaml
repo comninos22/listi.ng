@@ -1,13 +1,13 @@
-version: '3.8'
+
 services:
   mariadb:
     image: mariadb:11
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: examplepassword
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: exampleuser
-      MYSQL_PASSWORD: examplepass
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: listi_ng
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
     ports:
     - "3306:3306"
     volumes:
