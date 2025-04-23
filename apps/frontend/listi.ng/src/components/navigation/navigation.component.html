@@ -1,24 +1,39 @@
-<mat-sidenav-container *ngIf="__URL !== '/login' && __URL !== null" class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item routerLink="/todo">Todo</a>
-      <a mat-list-item routerLink="/profile">Profile</a>
-      <a mat-list-item routerLink="/about">About</a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      @if (isHandset$ | async) {
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      }
-      <span>listi.ng</span>
-      <ng-content></ng-content> <!-- Add Content Here -->
+<div>
+  <router-outlet *ngIf="__URL === '/login'"></router-outlet>
+
+  <!-- Horizontal Navbar for Desktop -->
+  <div class="desktop-container" *ngIf="(isHandset$ | async) === false && __URL !== '/login' && __URL !== null"
+    color="primary">
+
+    <mat-toolbar class="horizontal-toolbar">
+      <span class="toolbar-title">listi.ng</span>
+      <span class="toolbar-spacer"></span>
+      <a mat-button routerLink="/home" routerLinkActive="active-link">Home</a>
+      <a mat-button routerLink="/todo" routerLinkActive="active-link">Todo</a>
+      <a mat-button routerLink="/profile" routerLinkActive="active-link">Profile</a>
+      <a mat-button routerLink="/about" routerLinkActive="active-link">About</a>
     </mat-toolbar>
     <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-<router-outlet *ngIf="__URL === '/login'"></router-outlet>
+  </div>
+
+  <!-- Vertical Sidenav for Mobile -->
+  <mat-sidenav-container *ngIf="(isHandset$ | async) && __URL !== '/login' && __URL !== null" class="sidenav-container">
+    <mat-sidenav #sidenav class="sidenav" fixedInViewport [mode]="'over'" [opened]="false">
+      <mat-nav-list>
+        <a mat-list-item routerLink="/home" routerLinkActive="active-link">Home</a>
+        <a mat-list-item routerLink="/todo" routerLinkActive="active-link">Todo</a>
+        <a mat-list-item routerLink="/profile" routerLinkActive="active-link">Profile</a>
+        <a mat-list-item routerLink="/about" routerLinkActive="active-link">About</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <button mat-icon-button aria-label="Toggle sidenav" (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>listi.ng</span>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

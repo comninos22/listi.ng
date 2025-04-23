@@ -17,7 +17,7 @@ import {
   MatSnackBarModule,
 } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '../../service/login/login.service';
+import { LoginService } from '../../service/api/login/login.service';
 
 @Component({
   selector: 'app-login',

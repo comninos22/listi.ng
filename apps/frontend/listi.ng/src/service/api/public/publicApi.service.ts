@@ -6,13 +6,14 @@ import { Observable } from 'rxjs';
 export const API_URL_TOKEN = new InjectionToken('API_URL_TOKEN');
 @Injectable({ providedIn: 'root' })
 export class PublicApiService {
-  protected apiUrl = "http://localhost:3000/api"
+  //protected apiUrl = 'http://localhost:3000/api';
   constructor(
     protected http: HttpClient,
+    @Inject(API_URL_TOKEN) protected apiUrl: string
   ) {}
   getFullUrl(path: string): string {
     if (!path.startsWith('/')) {
-      path = '/' + path; 
+      path = '/' + path;
     }
     if (path.endsWith('/')) {
       path = path.slice(0, -1);
@@ -22,19 +23,19 @@ export class PublicApiService {
   interceptRequestHeaders(headers: any): any {
     return headers;
   }
-  get(path: string, params?: any): Observable<any> {
-    return this.http.get(`${this.getFullUrl(path)}`, { params });
+  get<T>(path: string, params?: any) {
+    return this.http.get<T>(`${this.getFullUrl(path)}`, { params });
   }
-  post(path: string, body: any): Observable<any> {
-    return this.http.post(`${this.getFullUrl(path)}`, body);
+  post<T>(path: string, body: any) {
+    return this.http.post<T>(`${this.getFullUrl(path)}`, body);
   }
-  put(path: string, body: any): Observable<any> {
-    return this.http.put(`${this.getFullUrl(path)}`, body);
+  put<T>(path: string, body: any) {
+    return this.http.put<T>(`${this.getFullUrl(path)}`, body);
   }
-  delete(path: string): Observable<any> {
-    return this.http.delete(`${this.getFullUrl(path)}`);
+  delete<T>(path: string) {
+    return this.http.delete<T>(`${this.getFullUrl(path)}`);
   }
-  patch(path: string, body: any): Observable<any> {
-    return this.http.patch(`${this.getFullUrl(path)}`, body);
+  patch<T>(path: string, body: any) {
+    return this.http.patch<T>(`${this.getFullUrl(path)}`, body);
   }
 }

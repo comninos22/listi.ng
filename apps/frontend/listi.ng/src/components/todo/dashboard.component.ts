@@ -15,7 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { TodoListComponent } from './list.component';
 import { TodoFormComponent } from './form.component';
-import { TodoService } from '../../service/todo/todo.service';
+import { TodoService } from '../../service/api/todo/todo.service';
 import { TodoDto } from '@listi.ng/common-dtos';
 
 @Component({
@@ -159,7 +159,6 @@ import { TodoDto } from '@listi.ng/common-dtos';
       .todo-dashboard {
         display: flex;
         flex-direction: column;
-        height: 100vh;
       }
 
       .toolbar-spacer {
@@ -327,3 +326,4 @@ export class TodoDashboardComponent implements OnInit {
     });
   }
 }
+ 

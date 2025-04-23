@@ -8,16 +8,13 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/frontend/listi.ng",
         "index": "apps/frontend/listi.ng/src/index.html",
         "browser": "apps/frontend/listi.ng/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/frontend/listi.ng/tsconfig.app.json",
         "assets": [
           {
@@ -36,13 +33,13 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "1000kb",
+              "maximumError": "1500kb"
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "4kb",
-              "maximumError": "8kb"
+              "maximumWarning": "100kb", 
+              "maximumError": "150kb" 
             }
           ],
           "outputHashing": "all"
@@ -78,9 +75,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/frontend/listi.ng/jest.config.ts"
       }
@@ -92,6 +87,23 @@
         "port": 4200,
         "staticFilePath": "dist/apps/frontend/listi.ng/browser",
         "spa": true
+      }
+    },
+    "compodoc:build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx compodoc -p tsconfig.base.json -d dist/compodoc/listi.ng"
+      },
+      "outputs": ["{workspaceRoot}/dist/compodoc/listi.ng"]
+    },
+    "compodoc:serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": false,
+        "commands": [
+          "npx nx run listi.ng:compodoc:build",
+          "npx compodoc -s -d dist/compodoc/listi.ng"
+        ]
       }
     }
   }

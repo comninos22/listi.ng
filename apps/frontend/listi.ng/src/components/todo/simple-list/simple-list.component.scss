@@ -1,0 +1,31 @@
+/* filepath: c:\Users\comni\Documents\GitHub\listi.ng\apps\frontend\listi.ng\src\components\todo\simple-todo-list.component.scss */
+.simple-todo-list {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+  
+    h2 {
+      text-align: center;
+      color: #3f51b5;
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+  
+      li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+  
+        &:last-child {
+          border-bottom: none;
+        }
+  
+        .completed {
+          text-decoration: line-through;
+          color: #888;
+        }
+      }
+    }
+  }

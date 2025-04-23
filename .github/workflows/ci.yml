@@ -1,42 +1,78 @@
 name: CI
-
 on:
   push:
     branches:
       - master
-  pull_request:
 
 permissions:
   actions: read
   contents: read
+  id-token: write
 
 jobs:
   main:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v4
         with:
-          filter: tree:0
           fetch-depth: 0
 
-      # This enables task distribution via Nx Cloud
-      # Run this command as early as possible, before dependencies are installed
-      # Learn more at https://nx.dev/ci/reference/nx-cloud-cli#npx-nxcloud-startcirun
-      # Uncomment this line to enable task distribution
-      # - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e-ci"
+      - name: Authenticate with Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Cache node_modules
-      - uses: actions/setup-node@v4
+      - name: Make backend ci script executable
+        run: chmod +x ./ci/scripts/build.sh
+
+      - name: Make frontend ci script executable
+        run: chmod +x ./ci/scripts/actions-front.sh
+
+      - name: Configure Kubectl
+        uses: azure/setup-kubectl@v3
+        id: install-kubectl
+        with:
+          version: 'latest'
+
+      - name: Authenticate to AKS cluster
+        run: |
+          az aks get-credentials --resource-group <RESOURCE_GROUP_NAME> --name <AKS_CLUSTER_NAME>
+
+      - name: Show Base and Head SHAs
+        run: |
+          echo "Base SHA: ${{ github.sha }}~1"
+          echo "Head SHA: ${{ github.sha }}"
+
+      - name: Configure Docker for Azure Container Registry
+        run: |
+          az acr login --name <ACR_NAME>
+
+      - uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: 'npm'
 
-      - run: npm ci --legacy-peer-deps
-      - run: npx cypress install
-      - uses: nrwl/nx-set-shas@v4
+      - name: Get branch name (pull request)
+        run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+        id: 'BRANCH'
 
-      # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
-      # - run: npx nx-cloud record -- echo Hello World
-      # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
-      # When you enable task distribution, run the e2e-ci task instead of e2e
-      - run: npx nx affected -t lint test build e2e
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            **/node_modules
+            **/.eslintcache
+          key: ${{ runner.os }}-build_stage-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-build_stage-${{ env.cache-name }}-${{ runner.os }}-build-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - run: npx nx affected -t docker-push bucket-push --base=${{ steps.BRANCH.outputs.branch }}~1 --head=${{ steps.BRANCH.outputs.branch }} --no-cloud
+        env:
+          NX_HEAD: ${{ github.sha }}
+          BRANCH: ${{ steps.BRANCH.outputs.branch }}
