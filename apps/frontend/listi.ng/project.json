@@ -85,7 +85,7 @@
       "options": {
         "buildTarget": "listi.ng:build",
         "port": 4200,
-        "staticFilePath": "dist/apps/frontend/listi.ng", 
+        "staticFilePath": "dist/apps/frontend/listi.ng/browser",
         "spa": true
       }
     },
