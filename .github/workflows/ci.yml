@@ -75,4 +75,4 @@ jobs:
       - run: npx nx affected -t docker-push bucket-push --base=${{ steps.BRANCH.outputs.branch }}~1 --head=${{ steps.BRANCH.outputs.branch }} --no-cloud
         env:
           NX_HEAD: ${{ github.sha }}
-          BRANCH: ${{ steps.BRANCH.outputs.branch }} 
+          BRANCH: ${{ steps.BRANCH.outputs.branch }}  
