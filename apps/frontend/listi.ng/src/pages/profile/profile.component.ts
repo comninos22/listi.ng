@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { LoginService } from '../../service/api/login/login.service';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +18,7 @@ import { LoginService } from '../../service/api/login/login.service';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
+    MatDivider
   ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],

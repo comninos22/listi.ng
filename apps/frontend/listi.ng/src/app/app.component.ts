@@ -10,10 +10,6 @@ import { AuthErrorInterceptor } from '../interceptors/token-expired.interceptor'
 @Component({
   imports: [NavigationComponent, RouterModule],
   providers: [
-    {
-      provide: API_URL_TOKEN,
-      useValue: 'http://localhost:3000/api', // Replace with your actual API URL}]
-    },
   ],
   selector: 'app-root',
   templateUrl: './app.component.html',

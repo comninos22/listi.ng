@@ -15,6 +15,7 @@
         "browser": "apps/frontend/listi.ng/src/main.ts",
 
         "polyfills": ["zone.js"],
+
         "tsConfig": "apps/frontend/listi.ng/tsconfig.app.json",
         "assets": [
           {
@@ -38,8 +39,8 @@
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "100kb", 
-              "maximumError": "150kb" 
+              "maximumWarning": "100kb",
+              "maximumError": "150kb"
             }
           ],
           "outputHashing": "all"
@@ -52,8 +53,15 @@
       },
       "defaultConfiguration": "production"
     },
+    "serve-no-host-check": {
+      "command": "npx nx run listi.ng:serve:production --disable-host-check"
+    },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "host": "0.0.0.0",
+        "port": 4200
+      },
       "configurations": {
         "production": {
           "buildTarget": "listi.ng:build:production"

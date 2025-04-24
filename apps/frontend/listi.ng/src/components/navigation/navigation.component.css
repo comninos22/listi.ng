@@ -28,7 +28,7 @@ a.mat-button.active-link {
 
 /* Vertical Sidenav */
 .sidenav-container {
-  height: 100%;
+  height: calc(100vh - 64px); /* Adjust for the height of the toolbar */
 }
  
 .sidenav {

@@ -6,11 +6,8 @@ import { Observable } from 'rxjs';
 export const API_URL_TOKEN = new InjectionToken('API_URL_TOKEN');
 @Injectable({ providedIn: 'root' })
 export class PublicApiService {
-  //protected apiUrl = 'http://localhost:3000/api';
-  constructor(
-    protected http: HttpClient,
-    @Inject(API_URL_TOKEN) protected apiUrl: string
-  ) {}
+  protected apiUrl = 'https://listi-ng.ngrok.app/api';
+  constructor(protected http: HttpClient) {}
   getFullUrl(path: string): string {
     if (!path.startsWith('/')) {
       path = '/' + path;
