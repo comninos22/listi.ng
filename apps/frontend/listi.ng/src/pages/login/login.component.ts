@@ -5,19 +5,16 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import  { Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {
-   MatSnackBar,
-  MatSnackBarModule,
-} from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '../../service/api/login/login.service';
+import { LoginService } from '../../service/api/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -52,7 +49,11 @@ export class LoginComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
-
+  showComingSoonToast(): void {
+    this.snackBar.open('Coming soon...', 'Close', {
+      duration: 3000, // Toast will disappear after 3 seconds
+    });
+  }
   onSubmit(): void {
     if (this.loginForm.valid) {
       this.isLoading = true;

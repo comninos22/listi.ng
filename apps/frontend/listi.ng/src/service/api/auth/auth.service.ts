@@ -27,7 +27,7 @@ export class LoginService {
     password: string;
     name: string;
   }): Observable<any> {
-    return this.api.post('/auth/signup', credentials);
+    return this.api.post('/auth/register', credentials);
   }
 
   /**
@@ -37,7 +37,9 @@ export class LoginService {
   logout(): Observable<any> {
     return this.api.post('/auth/logout', {});
   }
-
+  deleteMe(): Observable<any> {
+    return this.api.delete('/auth/delete-me');
+  } 
   /**
    * Stores the JWT token in localStorage.
    * @param token The JWT token to store.

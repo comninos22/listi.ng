@@ -1,9 +1,9 @@
 <div>
-  <router-outlet *ngIf="__URL === '/login'"></router-outlet>
+  <router-outlet *ngIf="__URL&&['/login','/register'].includes(__URL)"></router-outlet>
 
   <!-- Horizontal Navbar for Desktop -->
-  <div class="desktop-container" *ngIf="(isHandset$ | async) === false && __URL !== '/login' && __URL !== null"
-    color="primary">
+  <div class="desktop-container"
+    *ngIf="(isHandset$ | async) === false && __URL !== null&& !['/login','/register'].includes(__URL) " color="primary">
 
     <mat-toolbar class="horizontal-toolbar">
       <span class="toolbar-title">listi.ng</span>
@@ -17,7 +17,8 @@
   </div>
 
   <!-- Vertical Sidenav for Mobile -->
-  <mat-sidenav-container *ngIf="(isHandset$ | async) && __URL !== '/login' && __URL !== null" class="sidenav-container">
+  <mat-sidenav-container *ngIf="(isHandset$ | async) && __URL !== null && !['/login','/register'].includes(__URL) "
+    class="sidenav-container">
     <mat-sidenav #sidenav class="sidenav" fixedInViewport [mode]="'over'" [opened]="false">
       <mat-nav-list>
         <a mat-list-item routerLink="/home" routerLinkActive="active-link">Home</a>

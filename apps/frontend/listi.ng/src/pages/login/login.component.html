@@ -55,8 +55,9 @@
           </div>
           
           <div class="additional-options">
-            <a mat-button routerLink="/register">Create Account</a>
-            <a mat-button routerLink="/forgot-password">Forgot Password?</a>
+            <a mat-button href="/register">Create Account</a>
+
+            <a mat-button tabindex="0" (mousedown)="showComingSoonToast()">Forgot Password?</a>
           </div>
         </form>
       </mat-card-content>

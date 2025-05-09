@@ -1,6 +1,7 @@
 <div class="simple-todo-list">
     <h2>Your Todos</h2>
     <ul>
+        <li *ngIf="todos.length === 0">No todos available.</li>
         <li *ngFor="let todo of todos">
             <span [class.completed]="todo.completed">{{ todo.title }}</span>
         </li>
